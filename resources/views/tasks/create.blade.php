@@ -9,6 +9,11 @@
             {!! Form::model($task, ['route' => 'tasks.store']) !!}
         
                 <div class="form-group">
+                    {!! Form::label('user_id', 'ユーザーID:') !!}
+                    {!! Form::text('user_id', null, ['class' => 'form-control']) !!}
+                </div>
+                
+                <div class="form-group">
                     {!! Form::label('status', 'ステイタス:') !!}
                     {!! Form::text('status', null, ['class' => 'form-control']) !!}
                 </div>
