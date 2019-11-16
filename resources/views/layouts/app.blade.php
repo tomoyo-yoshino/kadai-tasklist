@@ -8,9 +8,7 @@
     </head>
 
     <body>
-        <header class="mb-4">
-           
-        </header>
+        <header class="mb-4"></header>
 
         @include('commons.navbar')
         

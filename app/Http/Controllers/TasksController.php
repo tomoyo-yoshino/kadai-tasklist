@@ -21,8 +21,7 @@ class TasksController extends Controller
                 'tasks' => $tasks,
             ];
         }
-        
-        return view('welcome', $data);
+        return view('tasks.index', $data);   
     }
 
     public function create()
@@ -43,7 +42,7 @@ class TasksController extends Controller
         
         $task = new Task;
         $task->status = $request->status;
-        $task->user_id = $request->user_id;
+        $task->user_id = $request->user()->id;
         $task->content = $request->content;
         $task->save();
         
@@ -53,19 +52,33 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-
-        return view('tasks.show', [
+        
+       
+        if (\Auth::id() === $task->user_id){
+            
+           return view('tasks.show', [
             'task' => $task,
-        ]);
+        ]); 
+            
+        }
+
+        return view('tasks.show');
+        
     }
 
     public function edit($id)
     {
         $task = Task::find($id);
-
-        return view('tasks.edit', [
-            'task' => $task,
-        ]);
+        
+        if (\Auth::id() === $task->user_id){
+        
+            return view('tasks.edit', [
+                'task' => $task,
+            ]);
+        
+        }
+        
+        return redirect('/');
     }
 
     public function update(Request $request, $id)
@@ -90,6 +103,8 @@ class TasksController extends Controller
         if (\Auth::id() === $task->user_id) {
             $task->delete();
         }
+        
+        return redirect('/');
 
     }
 }
