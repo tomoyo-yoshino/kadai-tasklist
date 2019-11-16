@@ -61,8 +61,8 @@ class TasksController extends Controller
         ]); 
             
         }
-
-        return view('tasks.show');
+        
+        return redirect('/');
         
     }
 
